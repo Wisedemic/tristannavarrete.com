@@ -44,6 +44,10 @@ class Header extends Component {
             <div className="navbar-end">
               <div className="navbar-item">
                 <div className="buttons">
+                  <a target="_blank" href="https://medium.com/@navarrete.tristan" className="button is-success">
+                    <span>Medium</span>
+                    <span className="icon"><i className="fab fa-medium-m"></i></span>
+                  </a>
                   <a target="_blank" href="https://twitter.com/TristanPreaches" className="button is-info">
                     <span>Twitter</span>
                     <span className="icon"><i className="fab fa-twitter"></i></span>
