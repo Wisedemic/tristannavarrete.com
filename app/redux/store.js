@@ -1,27 +1,27 @@
 import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga';
-import { all, fork } from 'redux-saga/effects'
-import reducerRegistry from '../utils/reducerRegistry';
-
 // import { promiseMiddleware, localStorageMiddleware, drizzleMiddleware } from './middleware';
 import createReducers from './reducers';
 
+const sagaMiddleware = createSagaMiddleware();
+
 let _store = null;
-// Setter
+export function getStore() {
+	return _store;
+}
 function setStore(store) {
   _store = store;
 }
 
-// Getter
-export const getStore = () => {
-  return _store;
-};
-
 // Init store
 export const configureStore = (history) => {
   let store = {};
-  const sagaMiddleware = createSagaMiddleware();
+
+  // Extensions
+  store.runSaga = sagaMiddleware.run;
+  store.injectedSagas = {}; // Saga registry
+
   const middleware = [
     routerMiddleware(history),
 		// promiseMiddleware,
@@ -45,10 +45,9 @@ export const configureStore = (history) => {
         store.dispatch({ type: '@@REDUCER_INJECTED' });
       });
     }
-    setStore(store);
+		setStore(store);
     return store;
   } else {
-
     store = applyMiddleware(...middleware)(createStore)(createReducers());
     setStore(store);
     return store;
