@@ -25,7 +25,7 @@ class Header extends Component {
             <div className="navbar-item">
               <div id="logo" style={{lineHeight: '1rem'}}>
                 <div className="title is-6" style={{marginBottom: '0'}}>
-                  Tristan navarrete
+                  Tristan Navarrete
                   <br />
                   <p className="subtitle is-6">
                     Web Developer & Blockchain Developer
@@ -44,6 +44,10 @@ class Header extends Component {
             <div className="navbar-end">
               <div className="navbar-item">
                 <div className="buttons">
+                  <a target="_blank" href="https://github.com/Wisedemic" className="button is-dark">
+                    <span>Github</span>
+                    <span className="icon"><i className="fab fa-github"></i></span>
+                  </a>
                   <a target="_blank" href="https://medium.com/@navarrete.tristan" className="button is-success">
                     <span>Medium</span>
                     <span className="icon"><i className="fab fa-medium-m"></i></span>
@@ -51,10 +55,6 @@ class Header extends Component {
                   <a target="_blank" href="https://twitter.com/TristanPreaches" className="button is-info">
                     <span>Twitter</span>
                     <span className="icon"><i className="fab fa-twitter"></i></span>
-                  </a>
-                  <a target="_blank" href="https://github.com/Wisedemic" className="button is-dark">
-                    <span>Github</span>
-                    <span className="icon"><i className="fab fa-github"></i></span>
                   </a>
                   <a href="mailto:navarrete.tristan@gmail.com" className="button is-light">
                     <span>Email</span>
