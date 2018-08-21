@@ -13,6 +13,31 @@ const { resolve } = require('path');
 
 const app = express();
 
+/* SSL
+  Accepts environment types: [Development, Production]
+  And what statuscode return when redirecting to HTTPS: 302
+*/
+const ssl = function(environments, status) {
+  environments = environments || ['production'];
+  status = status || 302;
+  return function(req, res, next) {
+    if (environments.indexOf(process.env.NODE_ENV) >= 0) {
+      if (req.headers['x-forwarded-proto'] != 'https') {
+        res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+      }
+      else {
+        next();
+      }
+    }
+    else {
+      next();
+    }
+  };
+};
+
+// Tell the app to use SSL in production, using a 302 for redirects
+app.use(ssl(['production'], 302));
+
 /*
 	Add an API Server Here, or any other routes,
 	before the app is compiled to serve react.
