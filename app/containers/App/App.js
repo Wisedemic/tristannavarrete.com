@@ -13,6 +13,7 @@ import Header from 'containers/Header/';
 import Footer from 'containers/Footer/';
 
 import HomePage from 'containers/HomePage/Loadable';
+import Animation from 'containers/Animation/Loadable';
 import Four_Oh_Four from 'containers/NotFoundPage/Loadable';
 import GlobalMessages from 'containers/GlobalMessages/'
 
@@ -24,7 +25,8 @@ const App = () => (
     <GlobalMessages />
     <div id="app-content">
       <Switch>
-        <Route path="/" component={HomePage} />
+        <Route exact path="/animation" component={Animation} />
+				<Route path="/" component={HomePage} />
         <Route component={Four_Oh_Four} />
       </Switch>
     </div>
