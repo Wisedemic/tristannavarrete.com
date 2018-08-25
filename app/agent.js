@@ -1,11 +1,21 @@
-// Grab Superagent for handling outbound requests.
-import _superagent from 'superagent';
-import superagentPromise from 'superagent-promise';
-// Promisifiy superagent
-const superagent = superagentPromise(_superagent, global.Promise);
+import 'whatwg-fetch';
 
 // Define constants
 const API_ROOT = `localhost:${process.env.PORT || 3000}/api`;
+
+/**
+ * Parses the JSON returned by a network request
+ *
+ * @param  {object} response A response from a network request
+ *
+ * @return {object}          The parsed JSON from the request
+ */
+function parseJSON(response) {
+  if (response.status === 204 || response.status === 205) {
+    return null;
+  }
+  return response.json();
+}
 
 /**
 * Checks if a network request came back fine, and throws an error if not
@@ -29,32 +39,15 @@ function checkStatus(response) {
 }
 
 /**
- * Parses the JSON returned by a network request
+ * Requests a URL, returning a promise
  *
- * @param  {object} response A response from a network request
- * @return {object}          The parsed JSON from the request
+ * @param  {string} url       The URL we want to request
+ * @param  {object} [options] The options we want to pass to "fetch"
+ *
+ * @return {object}           The response data
  */
-function parseJSON(response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
-	return JSON.parse(response);
+export default function request(url, options) {
+  return fetch(`${API_ROOT}${url}`, options)
+    .then(checkStatus)
+    .then(parseJSON);
 }
-
-
-// Define a general request handler to add the user's token if it exists.
-const requests = {
-  del: url =>
-    superagent.del(`${API_ROOT}${url}`).then(checkStatus),
-  get: url =>
-    superagent.get(`${API_ROOT}${url}`).then(checkStatus),
-  put: (url, body) =>
-    superagent.put(`${API_ROOT}${url}`, body).then(checkStatus),
-  post: (url, body) =>
-    superagent.post(`${API_ROOT}${url}`, body).then(checkStatus)
-};
-
-// Exports
-export default {
-  Blockchain
-};
