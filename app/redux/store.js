@@ -6,14 +6,6 @@ import createReducers from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-let _store = null;
-export function getStore() {
-	return _store;
-}
-function setStore(store) {
-  _store = store;
-}
-
 // Init store
 export const configureStore = (history) => {
   let store = {};
@@ -45,11 +37,9 @@ export const configureStore = (history) => {
         store.dispatch({ type: '@@REDUCER_INJECTED' });
       });
     }
-		setStore(store);
     return store;
   } else {
     store = applyMiddleware(...middleware)(createStore)(createReducers());
-    setStore(store);
     return store;
   }
 };

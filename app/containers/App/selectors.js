@@ -12,11 +12,6 @@ const makeSelectLoading = (state) => createSelector(
   (commonState) => commonState.get('loading')
 );
 
-const makeSelectBlocks = (state) => createSelector(
-  selectCommon,
-  (commonState) => commonState.get('blocks')
-);
-
 const makeSelectError = (state) => createSelector(
   selectCommon,
   (commonState) => commonState.get('error')
@@ -29,7 +24,6 @@ const makeSelectLocation = (state) => createSelector(
 
 export {
   selectCommon,
-  makeSelectBlocks,
   makeSelectLoading,
   makeSelectError,
   makeSelectLocation,
