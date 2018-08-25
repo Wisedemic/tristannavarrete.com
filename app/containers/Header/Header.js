@@ -28,7 +28,7 @@ class Header extends Component {
                   Tristan Navarrete
                   <br />
                   <p className="subtitle is-6">
-                    Web Developer & Blockchain Developer
+                    Full-Stack & Blockchain Developer
                   </p>
                 </div>
               </div>
