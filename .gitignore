@@ -1,6 +1,12 @@
 build
 node_modules
 .env
+#pouchdb
+VRworld
+pouch__all_dbs__
+localVRWorld
+_replicator
+_users
 
 .DS_Store
 npm-debug.log
