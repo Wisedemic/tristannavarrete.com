@@ -1,11 +1,12 @@
 import 'aframe';
-import 'aframe-particle-system-component';
 import 'aframe-mountain-component';
 
 import {
+	disconnect,
 	subscribeToConnect,
 	subscribeToUserList,
-	subscribeToDisconnect
+	subscribeToUserConnected,
+	subscribeToUserDisconnected
 } from './events';
 
 import { Entity, Scene } from 'aframe-react';
@@ -16,39 +17,50 @@ class Animation extends Component {
 	constructor() {
 		super();
 		this.state = {
-			users: [],
-			connected: false
+			users: [], // list of users in lobby
+			connected: false // Websocket connection
 		};
+
+		// Detect Enter key when the user enters a name
 		this.onChangeName = e => {
 			if (e.key == 'Enter') {
-				subscribeToConnect(() => this.setState({connected: true}));
+				/* The user hit enter,
+				so now we attempt to connect and listen for success. */
+				subscribeToConnect(() => {
+					console.log('CONNECT EVENT');
+					this.setState({connected: true});
+				});
 			}
 		}
 	}
 
+	// OnMount, Start listening for socket events.
 	componentDidMount() {
-		subscribeToUserList(userList => this.setState({users: userList}));
-		subscribeToDisconnect(id =>
+		// When a list is recieved
+		subscribeToUserList(userList => {
+			this.setState({users: userList});
+		});
+
+		// When a user connects
+		subscribeToUserConnected(user => {
+			this.setState({
+				users: this.state.users.concat(user)
+			});
+		});
+
+		// When a user disconnects
+		subscribeToUserDisconnected(id => {
 			this.setState({
 				users: this.state.users.filter(user => user.id == id)
-			})
-		);
+			});
+		});
 	}
-	//
-	// componentWillUnmount() {
-	// 	clearInterval(this.interval);
-	// }
+	// Disconnet the socket before Unmount.
+	componentWillUnmount() {
+		disconnect();
+	}
 
 	render() {
-		// <Entity particle-system={{
-		// 		randomize: true,
-		// 		rotationAngle: 0,
-		// 		preset: 'dust',
-		// 		particleCount: 3000,
-		// 		accelerationSpread: '0 0 1',
-		// 		accelerationValue: '0, 0, 1'
-		// 	}} />
-		console.log(this.state)
     return (
       <section className="hero is-white is-fullheight">
 				{this.state.connected ? (

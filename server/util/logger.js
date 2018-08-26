@@ -14,12 +14,9 @@ const logger = {
 
 	// Events
 	event: {
-		connected: (id) => {
-	    console.log(`${WS} Client id: {${id}} has Connected! ${chalk.green('✓')}`);
-		},
-		disconnected: (id) => {
-			console.log(`${WS} Client id: {${id}} has Disconnected! ${chalk.green('❌')}`);
-		}
+		log: (msg) => console.log(`${WS} - ${msg}`),
+		connected: (id) => console.log(`${WS} Client id: {${id}} has Connected! ${chalk.green('✓')}`),
+		disconnected: (id) => console.log(`${WS} Client id: {${id}} has Disconnected! ${chalk.green('❌')}`)
 	},
 
   // Called when express.js app starts on given port w/o errors

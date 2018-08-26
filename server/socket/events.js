@@ -1,57 +1,57 @@
 const users = require('./users');
 const logger = require('../util/logger');
 
-function rnd(max, min = 1) {
-	return (Math.round(Math.random()) * 2 - 1) * Math.floor((Math.random() * max) + min) * -1;
-}
+module.exports = function(io, client) {
+	function rnd(max, min = 1) {
+		return (Math.round(Math.random()) * 2 - 1) * Math.floor((Math.random() * max) + min) * -1;
+	}
 
-function rdnNegative(max, min = 1) {
-	return -Math.abs((Math.floor((Math.random() * max) + min)));
-}
+	function rdnNegative(max, min = 1) {
+		return -Math.abs((Math.floor((Math.random() * max) + min)));
+	}
 
-function rdnPositive(max, min = 1) {
-	return Math.abs((Math.floor((Math.random() * max) + min)));
-}
+	function rdnPositive(max, min = 1) {
+		return Math.abs((Math.floor((Math.random() * max) + min)));
+	}
 
-module.exports = function(io) {
-	io.on('connection', function(client) {
+	/*
+	 	Logs the client, Adds the user,
+		Emits the list of users to the new connection */
+	function connect() {
+		// Log
 		logger.event.connected(client.id);
-		users.addUser({
+
+		let user = {
 			id: client.id,
-			position: `${rnd(1, 2)} ${rnd(-3, 3)} ${rdnNegative(2, 6)}`
-		});
+			// Random player position in the world.
+			position: `${rnd(0, 2)} ${rdnNegative(-3, 3)} ${rdnNegative(2, 6)}`
+		};
+		users.addUser(user);
+
+		// update the user: give them a list of connected users.
 		client.emit('userList', users.getAll());
 
-		// User Typing Event.
-		client.on('typingState', function(state) {
-			if (state) {
-				io.sockets.emit('typingState', true);
-			} else {
-				io.sockets.emit('typingState', false);
-			}
-		});
+		// Update everyone: a new user has joined.
+		client.broadcast.emit('userConnected', user);
+	}
 
-		// New Message Event
-		client.on('newMessage', function(msg, username, roomID) {
-			console.log('New Message from: ' + client.id + '\n"' + msg + '"');
-			// Broadcast it to the client
-			client.to(roomName).emit('broadcast', msg);
-		});
+	// Disconnect the client
+	function disconnect() {
+		// Debugging
+		logger.event.disconnected(client.id);
 
-		// User Disconnection Event
-		client.on('disconnect', function() {
-			// Debugging
-			logger.event.disconnected(client.id);
+		// Update User Count
+		users.removeUser(client.id);
 
-			// Update User Count
-			users.removeUser(client.id);
+		// Broadcast disconnect to client.
+		client.broadcast.emit('userDisconnected', client.id);
 
-			// Broadcast disconnect to client.
-			io.sockets.emit('disconnect', 'A user has disconnected');
+		// Disconnect the client.
+		client.disconnect();
+	}
 
-			// Disconnect the client.
-			client.disconnect();
-		});
-	});
-
-};
+	return {
+		connect,
+		disconnect
+	};
+}

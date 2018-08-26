@@ -14,12 +14,10 @@ function decrementOnline() {
 let users = [];
 function addUser(data) {
 	users = users.concat(data);
-	console.log(users);
 	incrementOnline();
-}
 
 function getById(id) {
-	return users.filter(user => user.id != id);
+	return users.filter(user => user.id !== id);
 }
 
 function getAll() {
@@ -27,8 +25,9 @@ function getAll() {
 }
 
 function removeUser(id) {
-	return users.filter(user => user.id == id);
+	users = users.filter(user => user.id !== id);
 	decrementOnline();
+	return users;
 }
 
 // Exports
