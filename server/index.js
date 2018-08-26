@@ -47,6 +47,7 @@ app.use('/api', api);
 
 */
 
+
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
@@ -59,7 +60,9 @@ const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
 // Start the app.
-app.listen(port, host, (err) => {
+const server = require('http').Server(app);
+const io = require('./socket/')(server);
+server.listen(port, host, (err) => {
   if (err) {
     return logger.error(err.message);
   }

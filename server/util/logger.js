@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const ip = require('ip');
 
 const divider = chalk.gray('\n-----------------------------------');
-
+const WS = chalk.yellow('[WebSocket] -');
 /**
  * Logger middleware, you can customize it to make messages more personal
  */
@@ -11,6 +11,16 @@ const logger = {
   error: (err) => {
     console.error(chalk.red(err));
   },
+
+	// Events
+	event: {
+		connected: (id) => {
+	    console.log(`${WS} Client id: {${id}} has Connected! ${chalk.green('✓')}`);
+		},
+		disconnected: (id) => {
+			console.log(`${WS} Client id: {${id}} has Disconnected! ${chalk.green('❌')}`);
+		}
+	},
 
   // Called when express.js app starts on given port w/o errors
   appStarted: (port, host) => {

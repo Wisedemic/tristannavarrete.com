@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledHeader = Styled(props => (
   <nav {...props} />
@@ -22,7 +23,7 @@ class Header extends Component {
       <StyledHeader className="navbar is-fixed-top">
         <div className="container is-fluid">
           <div className="navbar-brand">
-            <div className="navbar-item">
+            <Link to="/" className="navbar-item">
               <div id="logo" style={{lineHeight: '1rem'}}>
                 <div className="title is-6" style={{marginBottom: '0'}}>
                   Tristan Navarrete
@@ -32,7 +33,7 @@ class Header extends Component {
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
             <div onClick={this.onClickMenu} className={`navbar-burger ${this.state.menuToggled ? ' is-active' : ''}`}>
               <span></span>
               <span></span>
