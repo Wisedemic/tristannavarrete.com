@@ -33,12 +33,9 @@ export class FeathersProvider extends Component {
 
     componentWillMount() {
         if (isSSR) return;
-        console.log('Feathers is mounting');
         /* Setup Feathers, connecting with WebSocket/REST protocols.
             Feathers provides easy server-to-browser communication. */
         this.socket = io();
-
-        console.log(this.socket);
 
         // Init feathers client on the browser.
         const client = feathers();
@@ -65,8 +62,6 @@ export class FeathersProvider extends Component {
         client.configure(rx({
             idField: '_id' // FeathersJS knows when to use SQL or NoSQL by using: "id" vs "_id".
         }));
-
-        console.log(client);
 
         this.setState({ client });
     }

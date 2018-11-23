@@ -264,7 +264,6 @@ class SortingExamples extends Component {
     render() {
         const { value, list, timeElapsed, sortType, sorting } = this.state;
         const timeTaken = new Date(timeElapsed).toISOString().substr(11, 8);
-        console.log(this.state);
         return (
             <StyledPanel className="panel">
                 <div className="panel-heading">
