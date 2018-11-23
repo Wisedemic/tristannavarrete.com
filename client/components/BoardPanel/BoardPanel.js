@@ -36,9 +36,18 @@ const StyledPanel = Styled.nav`
     }
 
     #createBoard {
-        padding: 4rem 2.45rem;
         margin: 1rem;
+        padding: 4rem 2.7rem;
+        max-width: 320px;
     }
+
+    @media(max-width: 560px) {
+        #createBoard {
+
+            width: 100%;
+        }
+    }
+
 
     .board {
         position: relative;
@@ -265,7 +274,7 @@ class BoardPanel extends Component {
 
                     {/* Are we trying to create a board? */}
                     {isCreatingBoard ? (
-                        <div className="box" style={{ padding: '4rem 1rem ' }}>
+                        <div id="createBoard" className="box">
                             <BoardForm onSubmit={createBoard} cancelForm={cancelCreateForm} />
 
                         </div>

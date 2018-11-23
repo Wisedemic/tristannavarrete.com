@@ -1,5 +1,5 @@
 {
-  "host": "tristannavarrete.com",
+  "host": "tristannavarrete.com-app.feathersjs.com",
   "port": "PORT",
   "mongodb": "MONGO_DB_URI"
 }

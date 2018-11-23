@@ -15,8 +15,14 @@ const StyledPanel = Styled.nav`
             fontSize: 16px;
         }
     }
+    @media(max-width: 550px) {
+        .panel-tabs {
+            padding-left: 3rem;
+        }
+    }
     .panel-tabs {
         color: #3273dc;
+        overflow-x: auto;
     }
 `;
 
@@ -110,7 +116,7 @@ class SortingExamples extends Component {
 
     // When the input changes, generate a new list of number.
     onChange = event => {
-        if (event.target.value > this.props.size.width / 2 || event.target.value < 0) return;
+        if (event.target.value > Math.floor(this.props.size.width / 2) || event.target.value < 0) return;
         this.setState({ list: this.generateList(event.target.value), value: event.target.value });
     };
 
@@ -289,7 +295,7 @@ class SortingExamples extends Component {
                             <div className="field">
                                 <div className="control is-expanded">
                                     <input className="input is-fullwidth" onChange={this.onChange} value={value} type="number" />
-                                    <p className="help is-info">Cannot be greater than the content width ({this.props.size.width / 2}px)</p>
+                                    <p className="help is-info">Cannot be greater than the content width ({Math.floor(this.props.size.width / 2)}px)</p>
                                 </div>
                             </div>
                             <div className="field">
