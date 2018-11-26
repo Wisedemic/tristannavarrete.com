@@ -3,15 +3,15 @@ import { InternetStatusProvider, InternetStatusConsumer } from './InternetStatus
 export { InternetStatusProvider, InternetStatusConsumer };
 
 // This is a component wrapper that passes in the internetStatus
-export const withInternetStatus = Component => class extends Component {
+export const withInternetStatus = Page => class extends Component {
     static getInitialProps(props) {
-        if (Component.getInitialProps) return Component.getInitialProps(props);
+        if (Page.getInitialProps) return Page.getInitialProps(props);
     }
     render() {
         return (
             <InternetStatusConsumer>
                 {internetStatus => (
-                    <Component {...this.props} {...internetStatus} />
+                    <Page {...this.props} {...internetStatus} />
                 )}
             </InternetStatusConsumer>
         );
@@ -19,14 +19,14 @@ export const withInternetStatus = Component => class extends Component {
 }
 
 
-export const InternetStatusWrapper = Component => class extends Component {
+export const InternetStatusWrapper = Page => class extends Component {
     static getInitialProps(props) {
-        if (Component.getInitialProps) return Component.getInitialProps(props);
+        if (Page.getInitialProps) return Page.getInitialProps(props);
     }
     render() {
         return (
             <InternetStatusProvider>
-                <Component {...this.props} />
+                <Page {...this.props} />
             </InternetStatusProvider>
         );
     }
