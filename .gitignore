@@ -1,6 +1,6 @@
 dist
 
-client/config/default.json
+server/config/default.json
 
 client/.next
 
