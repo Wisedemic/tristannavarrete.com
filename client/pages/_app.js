@@ -1,4 +1,8 @@
 import React from 'react';
+
+// Global Styles
+import '../styles/global.scss';
+
 import App, { Container } from 'next/app';
 
 // Page Transitions
@@ -16,9 +20,6 @@ import Toast from '../components/Toast';
 import { ThemeWrapper } from '../hoc/Theme';
 import { InternetStatusWrapper, withInternetStatus } from '../hoc/InternetStatus/';
 import { FeathersWrapper } from '../hoc/Feathers/';
-
-// Styles
-import '../styles/global.scss';
 
 class AppWrapper extends App {
     static async getInitialProps({ Component, ctx }) {
