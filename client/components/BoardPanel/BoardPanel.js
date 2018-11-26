@@ -48,7 +48,6 @@ const StyledPanel = Styled.nav`
         }
     }
 
-
     .board {
         position: relative;
         height: min-content;

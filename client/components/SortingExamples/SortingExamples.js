@@ -17,7 +17,7 @@ const StyledPanel = Styled.nav`
     }
     @media(max-width: 550px) {
         .panel-tabs {
-            padding-left: 3rem;
+            padding-left: 4rem;
         }
     }
     .panel-tabs {
