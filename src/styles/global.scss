@@ -1,0 +1,10 @@
+@import './bulma/bulma';
+@import './page-transitions';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  z-index: 1;
+}
