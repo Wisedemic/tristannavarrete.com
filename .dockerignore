@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.next
+.env
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

@@ -1,0 +1,7 @@
+{
+  "name": "tristannavarrete.com",
+  "description": "My personal website.",
+  "image": "heroku/nodejs",
+  "addons": [],
+  "stack": "conatiner"
+}

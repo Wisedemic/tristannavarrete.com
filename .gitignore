@@ -1,10 +1,5 @@
-dist
-
-server/config/default.json
-
-client/.next
-
-.next
+.env
+env
 
 # Logs
 logs
@@ -26,6 +21,10 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+# Next.js
+dist
+.out
+.next
 
 # Dependency directory
 # Commenting this out is preferred by some people, see
