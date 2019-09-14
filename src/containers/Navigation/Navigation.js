@@ -15,29 +15,6 @@ const LinkedInButton = styled.a`
   }
 `
 
-export const Link = forwardRef(({ onClick = undefined, children, href, ...rest }, ref) => {
-  const router = useRouter()
-  return (
-    <a
-      ref={ref}
-      href={href}
-      onClick={e => {
-        e.preventDefault()
-        if (onClick) onClick()
-        if (href.charAt(0) === '#') {
-          console.log(`/${href}`)
-          router.replace(`/${href}`, `/${href}`, { shallow: true })
-        } else {
-          router.push(href)
-        }
-      }}
-      {...rest}
-    >
-      {children}
-    </a>
-  )
-})
-
 const NavigationMobileHeader = styled.div`
   @media (min-width: 993px) {
     display: none;
@@ -74,17 +51,22 @@ const NavigationSidebar = styled.section`
   @media (max-width: 992px) {
     display: none;
   }
-  z-index: 30;
+  z-index: 99;
   position: absolute;
   width: 220px;
   top: 0;
+  @media (max-width: 992px) {
+    .ant-affix {
+      top: 50px !important;
+    }
+  }
   left: 0;
   bottom: 0;
   > div {
+    height: 100%;
     > div {
       height: 100%;
     }
-    height: 100%;
   }
   .navbar-item {
     transition: border-width 0.2s ease-in-out;
@@ -101,6 +83,29 @@ const BodyWrapper = styled.div`
   }
   margin-left: 220px;
 `
+
+export const Link = forwardRef(({ onClick = undefined, children, href, ...rest }, ref) => {
+  const router = useRouter()
+  return (
+    <a
+      ref={ref}
+      href={href}
+      onClick={e => {
+        e.preventDefault()
+        if (onClick) onClick()
+        if (href.charAt(0) === '#') {
+          console.log(`/${href}`)
+          router.replace(`/${href}`, `/${href}`, { shallow: true })
+        } else {
+          router.push(href)
+        }
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  )
+})
 
 function Navigation({ router, children }) {
   const [state, setState] = useState({
@@ -161,7 +166,7 @@ function Navigation({ router, children }) {
         onBlur={disableMenu}
         isMenuActive={isMenuActive}
       >
-        <Affix style={{ height: '100%' }}>
+        <Affix>
           <div
             style={{
               backgroundColor: 'white',
