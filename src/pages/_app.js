@@ -4,13 +4,10 @@ import { PageTransition } from 'next-page-transitions'
 import styled from 'styled-components'
 import Loader from '../components/PageLoaders/SVGLoader'
 import Navigation from '../containers/Navigation'
-import Toast from '../components/Toast'
 import { BackTop, Icon } from 'antd'
 import Router from 'next/router'
 import withGA from 'next-ga'
 import getConfig from 'next/config'
-
-import { InternetStatusWrapper, withInternetStatus } from '../hoc/InternetStatus/'
 import '../styles/global.scss'
 const { publicRuntimeConfig } = getConfig()
 
@@ -28,7 +25,7 @@ const BackToTop = styled(BackTop)`
 
 class AppWrapper extends App {
   render() {
-    const { Component, pageProps, internetStatus } = this.props
+    const { Component, pageProps } = this.props
     return (
       <PageTransition
         classNames="page-transition"
@@ -41,14 +38,7 @@ class AppWrapper extends App {
         }}
         loadingClassNames="loading-indicator"
       >
-        {/* We add Providers at this level! */}
         <Navigation key="app-navigation">
-          {!internetStatus && (
-            <Toast key="internet-status-toast">
-              <p className="control">No Internet Connection Detected...</p>
-              {/* <img src={require('static/loader.gif')} alt="Loading..." />  */}
-            </Toast>
-          )}
           <Component key="app" {...pageProps} />
           <BackToTop>
             <Icon type="up" />
@@ -59,5 +49,4 @@ class AppWrapper extends App {
   }
 }
 
-// Wrapper hell is contained here.
-export default InternetStatusWrapper(withInternetStatus(withGA(publicRuntimeConfig.GA_KEY, Router)(AppWrapper)))
+export default withGA(publicRuntimeConfig.GA_KEY, Router)(AppWrapper)
