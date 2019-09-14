@@ -1,16 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
-import SortingExamples from '../../containers/SortingExamples'
-import NotATrelloBoard from '../../containers/NotATrelloBoard'
+import SortingExamples from './SortingExamples'
+import NotATrelloBoard from './NotATrelloBoard'
 import { Tabs } from 'antd'
 
 const { TabPane } = Tabs
 const disableSsr = { ssr: false }
 
 // Disable SSR rendering because aframe requires 'window'
-const VRWorld = dynamic(() => import('../../containers/VRWorld'), disableSsr)
-const MonkeyGame = dynamic(() => import('../../containers/MonkeyGame'), disableSsr)
+const VRWorld = dynamic(() => import('./VRWorld'), disableSsr)
+const MonkeyGame = dynamic(() => import('./MonkeyGame'), disableSsr)
 
 const PlayTabs = styled(Tabs)`
   && {

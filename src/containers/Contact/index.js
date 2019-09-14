@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Typography } from 'antd'
 import ContactForm from './ContactForm'
-import sleep from '../../../utils/sleep'
+import sleep from '../../utils/sleep'
 import axios from 'axios'
 import { message } from 'antd'
 
