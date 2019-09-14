@@ -55,16 +55,14 @@ const NavigationSidebar = styled.section`
   position: absolute;
   width: 220px;
   top: 0;
-  @media (max-width: 992px) {
-    .ant-affix {
-      top: 50px !important;
-    }
-  }
   left: 0;
   bottom: 0;
   > div {
     height: 100%;
     > div {
+      @media (max-width: 992px) {
+        margin-top: 50px !important;
+      }
       height: 100%;
     }
   }
