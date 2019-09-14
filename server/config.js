@@ -1,7 +1,5 @@
 // config.js
-const dotenv = require('dotenv')
-
-dotenv.config()
+require('dotenv').config()
 
 module.exports = {
   MAILGUN_API_KEY: process.env.MAILGUN_API_KEY,

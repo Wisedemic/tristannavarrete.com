@@ -1,10 +1,10 @@
 const fs = require('fs')
 const path = require('path')
+const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
 const withLess = require('@zeit/next-less')
-const withCss = require('@zeit/next-css')
-const lessToJS = require('less-vars-to-js')
 
+const lessToJS = require('less-vars-to-js')
 const themeVariables = lessToJS(fs.readFileSync(path.resolve(__dirname, './styles/antd-theme.less'), 'utf8'))
 
 const publicRuntimeConfig = { GA_KEY: process.env['GA_KEY'] }

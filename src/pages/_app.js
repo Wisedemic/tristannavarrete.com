@@ -6,8 +6,13 @@ import Loader from '../components/PageLoaders/SVGLoader'
 import Navigation from '../containers/Navigation'
 import Toast from '../components/Toast'
 import { BackTop, Icon } from 'antd'
+import Router from 'next/router'
+import withGA from 'next-ga'
+import getConfig from 'next/config'
+
 import { InternetStatusWrapper, withInternetStatus } from '../hoc/InternetStatus/'
 import '../styles/global.scss'
+const { publicRuntimeConfig } = getConfig()
 
 const BackToTop = styled(BackTop)`
   background-color: white;
@@ -55,4 +60,4 @@ class AppWrapper extends App {
 }
 
 // Wrapper hell is contained here.
-export default InternetStatusWrapper(withInternetStatus(AppWrapper))
+export default InternetStatusWrapper(withInternetStatus(withGA(publicRuntimeConfig.GA_KEY, Router)(AppWrapper)))
