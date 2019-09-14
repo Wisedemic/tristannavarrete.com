@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const next = require('next')
 const bodyParser = require('body-parser')
@@ -14,9 +16,15 @@ const { sendMail, isEmail } = require('./mailer')
 // Prepare React app before setting up the server
 nextApp.prepare().then(() => {
   const server = express()
-
   // Accept JSON
   server.use(bodyParser.json())
+
+  // Serve a Sitemap.xml when requested!
+  server.get('/sitemap.xml', function(req, res) {
+    res.header('Content-Type', 'application/xml')
+    const sitemap = fs.readFileSync(path.join(__dirname, 'public', 'sitemap.xml'), 'utf8')
+    res.send(sitemap)
+  })
 
   // Setup /contact route for mailing
   server.post('/api/contact', (req, res) => {
