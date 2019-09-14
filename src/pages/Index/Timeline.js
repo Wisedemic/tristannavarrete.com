@@ -269,6 +269,12 @@ const scrollToRef = ref => {
   window.scrollTo(0, ref.current.offsetHeight)
 }
 
+const ForwardedRefsDiv = React.forwardRef((props, ref) => (
+  <div ref={ref} {...props}>
+    {props.children}
+  </div>
+))
+
 const TimelineDrawer = ({ isCollapsed, handleOpen, handleClose, children, ...rest }) => {
   const myRef = useRef(null)
   const executeScroll = () => scrollToRef(myRef)
@@ -303,22 +309,24 @@ function renderItems(items) {
         <QueueAnim type="bottom" component={Timeline} mode="alternate" delay={600} duration={1500}>
           {isVisible &&
             items.map((item, key) => (
-              <Timeline.Item key={`item-${key}`} dot={<TimelineDot>{item.dot}</TimelineDot>}>
-                <TimelineCard color={item.color}>
-                  <div className="timeline-header">{item.headerTitle}</div>
-                  <Typography className="timeline-body">
-                    <Title level={4}>{item.title}</Title>
-                    {item.description.split('\n').map((item, key) => (
-                      <Paragraph key={key}>{item}</Paragraph>
-                    ))}
-                  </Typography>
-                  <div className="timeline-footer">
-                    {item.tags.map((tag, key) => (
-                      <Tag key={key}>{tag}</Tag>
-                    ))}
-                  </div>
-                </TimelineCard>
-              </Timeline.Item>
+              <ForwardedRefsDiv key={`item-${key}`}>
+                <Timeline.Item dot={<TimelineDot>{item.dot}</TimelineDot>}>
+                  <TimelineCard color={item.color}>
+                    <div className="timeline-header">{item.headerTitle}</div>
+                    <Typography className="timeline-body">
+                      <Title level={4}>{item.title}</Title>
+                      {item.description.split('\n').map((item, key) => (
+                        <Paragraph key={key}>{item}</Paragraph>
+                      ))}
+                    </Typography>
+                    <div className="timeline-footer">
+                      {item.tags.map((tag, key) => (
+                        <Tag key={key}>{tag}</Tag>
+                      ))}
+                    </div>
+                  </TimelineCard>
+                </Timeline.Item>
+              </ForwardedRefsDiv>
             ))}
         </QueueAnim>
       )}
