@@ -43,9 +43,13 @@ class VRWorld extends Component {
           <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
           <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
         </Head>
-        <div className="panel-block" style={{ flexDirection: 'column', borderTop: 'none' }}>
+        <div
+          className="panel-block"
+          style={{ flexDirection: 'column', borderTop: 'none' }}
+        >
           <Text>
-            A small VR world with some randomly generated mountains. Nothing fancy here. Just testing out some VR stuff
+            A small VR world with some randomly generated mountains. Nothing
+            fancy here. Just testing out some VR stuff
           </Text>
         </div>
         <SceneWrapper className="panel-block">

@@ -56,7 +56,11 @@ function startWorkOnIncrement(action, state, techType) {
       bananas: state.bananas - action.cost,
       tech: {
         ...state.tech,
-        [techType]: { ...tech, count: tech.count + action.amount, startedAt: state.timeElapsed }
+        [techType]: {
+          ...tech,
+          count: tech.count + action.amount,
+          startedAt: state.timeElapsed
+        }
       }
     }
   } else {

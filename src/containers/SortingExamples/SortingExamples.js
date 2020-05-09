@@ -4,6 +4,7 @@ import Styled from 'styled-components'
 import randomColor from 'randomcolor'
 import sleep from '../../utils/sleep'
 import { Tabs, Divider, Typography } from 'antd'
+import CardPanel from '../../components/CardPanel'
 const { TabPane } = Tabs
 const { Text } = Typography
 
@@ -42,20 +43,23 @@ const SortingContainer = Styled.div`
     }
 `
 
-const capitalize = text => text.slice(0, 1).toUpperCase() + text.slice(1, text.length)
+const capitalize = text =>
+  text.slice(0, 1).toUpperCase() + text.slice(1, text.length)
 const sortingTypes = [
   {
     type: 'quicksort',
     description:
       'Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm, serving as a systematic method for placing the elements of a random access file or an array in order.',
-    imgSrc: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif'
+    imgSrc:
+      'https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif'
   },
   { type: 'mergesort', description: '', imgSrc: '' },
   {
     type: 'bubblesort',
     description:
       'Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent pairs and swaps them if they are in the wrong order.',
-    imgSrc: 'https://upload.wikimedia.org/wikipedia/commons/5/54/Sorting_bubblesort_anim.gif'
+    imgSrc:
+      'https://upload.wikimedia.org/wikipedia/commons/5/54/Sorting_bubblesort_anim.gif'
   },
   { type: 'selectsort', description: '', imgSrc: '' },
   { type: 'insertionsort', description: '', imgSrc: '' }
@@ -115,7 +119,10 @@ class SortingExamples extends Component {
   // Start clock
   startClock = async () => {
     const startTime = Date.now()
-    this.timer = setInterval(() => this.setState({ timeElapsed: Date.now() - startTime + 1 }), 10)
+    this.timer = setInterval(
+      () => this.setState({ timeElapsed: Date.now() - startTime + 1 }),
+      10
+    )
   }
 
   // Reset and stop sorting.
@@ -140,8 +147,15 @@ class SortingExamples extends Component {
 
   // When the input changes, generate a new list of number.
   onChange = event => {
-    if (event.target.value > Math.floor(this.props.size.width / 2) || event.target.value < 0) return
-    this.setState({ list: this.generateList(event.target.value), value: event.target.value })
+    if (
+      event.target.value > Math.floor(this.props.size.width / 2) ||
+      event.target.value < 0
+    )
+      return
+    this.setState({
+      list: this.generateList(event.target.value),
+      value: event.target.value
+    })
   }
 
   selectsort = async origArray => {
@@ -291,76 +305,87 @@ class SortingExamples extends Component {
 
   render() {
     const { value, list, timeElapsed, sorting } = this.state
+    const { title } = this.props
     const timeTaken = new Date(timeElapsed).toISOString().substr(11, 8)
     return (
-      <StyledPanel className="panel">
-        <div className="panel-block" style={{ flexDirection: 'column', borderTop: 'none' }}>
-          <Text>
-            {
-              'Sorting algorithms are used to reorder a list into a particular order. Try out these algorithms below to see the differences'
-            }
-          </Text>
-        </div>
-        <div className="panel-block">
-          <Tabs defaultActiveKey={sortingTypes[0].type} style={{ flexGrow: 1 }} onChange={() => this.reset()}>
-            {sortingTypes.map(item => (
-              <TabPane key={item.type} tab={capitalize(item.type)}>
-                <div>
-                  <div className="field is-horizontal" style={{ flexGrow: '1' }}>
-                    <label className="field-label">Item Count</label>
-                    <div className="field-body">
-                      <div className="field">
-                        <div className="control is-expanded">
-                          <input className="input is-fullwidth" onChange={this.onChange} value={value} type="number" />
-                          <p className="help is-info">Max: {Math.floor(this.props.size.width / 2)}</p>
-                        </div>
+      <CardPanel title={title}>
+        <Tabs
+          defaultActiveKey={sortingTypes[0].type}
+          style={{ flexGrow: 1 }}
+          onChange={() => this.reset()}
+        >
+          {sortingTypes.map(item => (
+            <TabPane key={item.type} tab={capitalize(item.type)}>
+              <div>
+                <div className="field is-horizontal" style={{ flexGrow: '1' }}>
+                  <label className="field-label">Item Count</label>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control is-expanded">
+                        <input
+                          className="input is-fullwidth"
+                          onChange={this.onChange}
+                          value={value}
+                          type="number"
+                        />
+                        <p className="help is-info">
+                          Max: {Math.floor(this.props.size.width / 2)}
+                        </p>
                       </div>
-                      <div className="field">
-                        <div className="buttons">
-                          <button
-                            className="button is-success"
-                            disabled={sorting ? true : false}
-                            onClick={() => this.startSorting(item.type)}
-                          >
-                            Start
-                          </button>
-                          <button className="button is-light" onClick={this.reset}>
-                            Reset
-                          </button>
-                          <strong id="timeElapsed" style={{ marginLeft: '1rem' }}>
-                            {timeTaken}
-                          </strong>
-                        </div>
+                    </div>
+                    <div className="field">
+                      <div className="buttons">
+                        <button
+                          className="button is-success"
+                          disabled={sorting ? true : false}
+                          onClick={() => this.startSorting(item.type)}
+                        >
+                          Start
+                        </button>
+                        <button
+                          className="button is-light"
+                          onClick={this.reset}
+                        >
+                          Reset
+                        </button>
+                        <strong
+                          id="timeElapsed"
+                          style={{
+                            marginLeft: '1rem'
+                          }}
+                        >
+                          {timeTaken}
+                        </strong>
                       </div>
                     </div>
                   </div>
                 </div>
-                <SortingContainer>
-                  {list.map((value, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        height: value.index,
-                        backgroundColor: value.color
-                      }}
-                      className="bar"
-                    />
-                  ))}
-                </SortingContainer>
-                <Divider />
-                <div className="columns">
-                  <div className="column is-one-third">
-                    <img src={item.imgSrc} style={{ height: 150, width: 150 }} />
-                  </div>
-                  <div className="column">
-                    <Text>{item.description}</Text>
-                  </div>
+              </div>
+              <SortingContainer>
+                {list.map((value, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      height: value.index,
+                      backgroundColor: value.color
+                    }}
+                    className="bar"
+                  />
+                ))}
+              </SortingContainer>
+              <Divider />
+              <div className="columns">
+                <div className="column is-one-third">
+                  <img src={item.imgSrc} style={{ height: 150, width: 150 }} />
                 </div>
-              </TabPane>
-            ))}
-          </Tabs>
-        </div>
-      </StyledPanel>
+                <div className="column">
+                  <Text>{item.description}</Text>
+                </div>
+              </div>
+            </TabPane>
+          ))}
+        </Tabs>
+      </CardPanel>
     )
   }
 }

@@ -42,7 +42,8 @@ function gameState(initialState = initialGameState) {
 
   function recruitMonkey(amount) {
     const cost = calcCost('recruits')
-    if (canPurchase('recruits')) dispatch({ type: INCREMENT_RECRUITS, amount, cost })
+    if (canPurchase('recruits'))
+      dispatch({ type: INCREMENT_RECRUITS, amount, cost })
     else dispatch({ type: INSUFFICENT_FUNDS })
   }
 
@@ -53,12 +54,14 @@ function gameState(initialState = initialGameState) {
 
   function buildPlantation(amount) {
     const cost = calcCost('plantations')
-    if (canPurchase('plantations')) dispatch({ type: INCREMENT_PLANTATIONS, amount, cost })
+    if (canPurchase('plantations'))
+      dispatch({ type: INCREMENT_PLANTATIONS, amount, cost })
   }
 
   function spawnNanactory(amount) {
     const cost = calcCost('nanactories')
-    if (canPurchase('nanactories')) dispatch({ type: INCREMENT_NANACTORIES, amount, cost })
+    if (canPurchase('nanactories'))
+      dispatch({ type: INCREMENT_NANACTORIES, amount, cost })
   }
 
   return {

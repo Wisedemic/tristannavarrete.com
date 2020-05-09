@@ -47,7 +47,11 @@ const OnBlurValidation = ({ mutators: { onBlurValidationMutator } }) => (
 
 const onBlurValidationMutator = () => {}
 
-const TitleForm = ({ initialValues = { category: '' }, onSubmit, cancelForm }) => (
+const TitleForm = ({
+  initialValues = { category: '' },
+  onSubmit,
+  cancelForm
+}) => (
   <Form
     initialValues={initialValues}
     onSubmit={onSubmit}
@@ -66,13 +70,23 @@ const TitleForm = ({ initialValues = { category: '' }, onSubmit, cancelForm }) =
           <Field
             name="category"
             render={({ input, meta }) => (
-              <div className="field is-grouped has-addons has-addons-right" style={{ width: '100%' }}>
+              <div
+                className="field is-grouped has-addons has-addons-right"
+                style={{ width: '100%' }}
+              >
                 <div className="control is-expanded">
                   <input {...input} className="input is-small" />
-                  {meta.touched && meta.error && <p className="help is-danger">{meta.error}</p>}
+                  {meta.touched && meta.error && (
+                    <p className="help is-danger">{meta.error}</p>
+                  )}
                 </div>
                 <div className="control">
-                  <Button type="primary" onClick={handleSubmit} size="small" disabled={pristine || invalid}>
+                  <Button
+                    type="primary"
+                    onClick={handleSubmit}
+                    size="small"
+                    disabled={pristine || invalid}
+                  >
                     <Icon type="check" />
                   </Button>
                 </div>

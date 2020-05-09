@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Styled from 'styled-components'
 import localStorage from 'localStorage'
 import TitleForm from './Board/TitleForm'
@@ -6,27 +6,13 @@ import Board from './Board'
 import { Button, Icon, Card, Typography } from 'antd'
 import randomColor from 'randomcolor'
 import sleep from '../../utils/sleep'
-const { Text } = Typography
-
+import CardPanel from '../../components/CardPanel'
 const colours = randomColor({ count: 4 })
 
-const StyledPanel = Styled.nav`
-	.panel-heading {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-
-		.subtitle {
-			margin-bottom: 0px;
-		}
-	}
-
-	#board-wrapper {
-		background: white;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
+const StyleContainer = Styled.nav`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
 	.board {
 		position: relative;
@@ -81,12 +67,12 @@ const StyledPanel = Styled.nav`
 const exampleBoards = [
   {
     category: 'Banana Bread',
-    data: ['Milk', 'Banana'],
+    data: ['Milk', 'Banana', 'Vanilla Extract'],
     colour: colours[0]
   },
   {
     category: 'Cinnamon Rolls',
-    data: ['Baking Soda', 'Nuts'],
+    data: ['Baking Soda', 'Nuts', 'Icing Sugar'],
     colour: colours[1]
   },
   {
@@ -95,8 +81,8 @@ const exampleBoards = [
     colour: colours[2]
   },
   {
-    category: 'Funnel Cake',
-    data: ['Icing Sugar', 'Vanilla Extract'],
+    category: "To-do's",
+    data: [],
     colour: colours[3]
   }
 ]
@@ -141,15 +127,19 @@ class NotATrelloBoard extends Component {
 
   // Transfer items
   transferItem = (fromItemIndex, fromBoard, data, toBoard, toItemIndex) => {
-    if (!fromItemIndex) throw new Error('transferItem requires an "fromItemIndex" arg!')
+    if (!fromItemIndex)
+      throw new Error('transferItem requires an "fromItemIndex" arg!')
     if (!fromBoard) throw new Error('transferItem requires a "fromBoard" arg!')
     if (!data) throw new Error('transferItem requires a "data" arg!')
-    if (isNaN(toBoard)) throw new Error('transferItem requires a "toBoard" arg!')
+    if (isNaN(toBoard))
+      throw new Error('transferItem requires a "toBoard" arg!')
 
     let boards = this.state.boards
 
     // Remove the item from it's origin
-    boards[fromBoard].data = boards[fromBoard].data.filter((_, index) => index != fromItemIndex)
+    boards[fromBoard].data = boards[fromBoard].data.filter(
+      (_, index) => index != fromItemIndex
+    )
 
     // Did we drag over an existing item?
     if (!isNaN(toItemIndex)) {
@@ -168,7 +158,9 @@ class NotATrelloBoard extends Component {
   // Create a board
   createBoard = values => {
     if (!values.category) {
-      throw new Error('createBoard did not receieve a value when attempting to create!')
+      throw new Error(
+        'createBoard did not receieve a value when attempting to create!'
+      )
     }
     // Append new board to boardlist
     const boards = this.state.boards.concat({
@@ -185,9 +177,13 @@ class NotATrelloBoard extends Component {
   // Update a board
   updateBoard = (boardIndex, data) => {
     if (typeof boardIndex !== 'number') {
-      throw new Error('updateBoard did not receieve a boardIndex when attempting to update this board.')
+      throw new Error(
+        'updateBoard did not receieve a boardIndex when attempting to update this board.'
+      )
     } else if (!data) {
-      throw new Error('updateBoard did not receieve any data when trying to update!')
+      throw new Error(
+        'updateBoard did not receieve any data when trying to update!'
+      )
     }
 
     let boards = this.state.boards
@@ -230,19 +226,32 @@ class NotATrelloBoard extends Component {
   // Render the panel
   render() {
     const { isCreatingBoard, boards, saving } = this.state
-    const { createBoard, renderBoards, toggleCreateTitleForm, cancelCreateForm } = this
-
+    const {
+      createBoard,
+      renderBoards,
+      toggleCreateTitleForm,
+      cancelCreateForm
+    } = this
+    const { title } = this.props
     return (
-      <StyledPanel id="board-panel" className="panel">
-        <div className="panel-block" style={{ flexDirection: 'column', borderTop: 'none' }}>
-          <Text>
-            A typical Todo-List app. These Boards are saved to your browser, and you can drag items between boards as
-            well
-            {saving && <Button type="primary" loading shape="circle" style={{ marginLeft: '1rem' }} />}
-          </Text>
-        </div>
-        {/* A style wrapper to create flex-box container for the boards */}
-        <div id="board-wrapper" className="panel-block">
+      <CardPanel
+        title={
+          <Fragment>
+            {title ? title : ''}
+            <Button
+              type="primary"
+              size="small"
+              loading
+              shape="circle"
+              style={{
+                marginLeft: '1rem',
+                opacity: saving ? 1 : 0
+              }}
+            />
+          </Fragment>
+        }
+      >
+        <StyleContainer>
           {/* Render all the boards */}
           {renderBoards(boards)}
 
@@ -252,13 +261,18 @@ class NotATrelloBoard extends Component {
               <TitleForm onSubmit={createBoard} cancelForm={cancelCreateForm} />
             </Card>
           ) : (
-            <Button type="dashed" className="board" onClick={toggleCreateTitleForm} style={{ padding: '3.5rem' }}>
+            <Button
+              type="dashed"
+              className="board"
+              onClick={toggleCreateTitleForm}
+              style={{ padding: '3.5rem' }}
+            >
               <Icon type="plus" />
               Create Board
             </Button>
           )}
-        </div>
-      </StyledPanel>
+        </StyleContainer>
+      </CardPanel>
     )
   }
 }

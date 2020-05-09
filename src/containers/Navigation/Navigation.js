@@ -1,7 +1,9 @@
-import React, { useState, forwardRef } from 'react'
-import { withRouter, useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { withRouter } from 'next/router'
 import styled, { css } from 'styled-components'
 import { Affix, Divider } from 'antd'
+import NavigationSidebar from './Sidebar'
+import Link from './Link'
 
 const LinkedInButton = styled.a`
   border-color: #0073b1;
@@ -35,43 +37,11 @@ const NavigationMobileHeader = styled.div`
     display: flex;
     z-index: 100;
     background-color: white;
-    box-shadow: rgba(10, 10, 10, 0.1) 0px 2px 3px, rgba(10, 10, 10, 0.1) 0px 0px 0px 1px;
+    box-shadow: rgba(10, 10, 10, 0.1) 0px 2px 3px,
+      rgba(10, 10, 10, 0.1) 0px 0px 0px 1px;
     height: 3.25rem;
     margin-top: -3.25rem;
     width: 100%;
-  }
-`
-
-const NavigationSidebar = styled.section`
-  ${props =>
-    props.isMenuActive &&
-    css`
-      display: block !important;
-    `}
-  @media (max-width: 992px) {
-    display: none;
-  }
-  z-index: 99;
-  position: absolute;
-  width: 220px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  > div {
-    height: 100%;
-    > div {
-      @media (max-width: 992px) {
-        margin-top: 50px !important;
-      }
-      height: 100%;
-    }
-  }
-  .navbar-item {
-    transition: border-width 0.2s ease-in-out;
-    &.is-active {
-      background-color: #fafafa !important;
-      border-left: 4px solid;
-    }
   }
 `
 
@@ -82,29 +52,6 @@ const BodyWrapper = styled.div`
   margin-left: 220px;
 `
 
-export const Link = forwardRef(({ onClick = undefined, children, href, ...rest }, ref) => {
-  const router = useRouter()
-  return (
-    <a
-      ref={ref}
-      href={href}
-      onClick={e => {
-        e.preventDefault()
-        if (onClick) onClick()
-        if (href.charAt(0) === '#') {
-          console.log(`/${href}`)
-          router.replace(`/${href}`, `/${href}`, { shallow: true })
-        } else {
-          router.push(href)
-        }
-      }}
-      {...rest}
-    >
-      {children}
-    </a>
-  )
-})
-
 function Navigation({ router, children }) {
   const [state, setState] = useState({
     isMenuToggled: false,
@@ -113,7 +60,8 @@ function Navigation({ router, children }) {
 
   const disableMenu = () => setState({ ...state, isMenuToggled: false })
   const enableMenu = () => setState({ ...state, isMenuToggled: true })
-  const isCurrentPage = name => (state.activeNavigation === name ? ' is-active' : '')
+  const isCurrentPage = name =>
+    state.activeNavigation === name ? ' is-active' : ''
   const isMenuActive = state.isMenuToggled ? ' is-active' : ''
 
   const changeActiveNavigation = name =>
@@ -144,11 +92,22 @@ function Navigation({ router, children }) {
               onClick={disableMenu}
               style={{ border: 'none', padding: '0.5rem 1rem' }}
             >
-              <p className="title" style={{ color: 'rgb(0, 158, 108)', fontSize: '1rem' }}>
+              <p
+                className="title"
+                style={{
+                  color: 'rgb(0, 158, 108)',
+                  fontSize: '1rem'
+                }}
+              >
                 Tristan Navarrete
                 <span
                   className="subtitle"
-                  style={{ display: 'block', marginBottom: 0, fontWeight: 400, fontSize: '0.8rem' }}
+                  style={{
+                    display: 'block',
+                    marginBottom: 0,
+                    fontWeight: 400,
+                    fontSize: '0.8rem'
+                  }}
                 >
                   Full Stack Developer
                 </span>
@@ -169,23 +128,40 @@ function Navigation({ router, children }) {
             style={{
               backgroundColor: 'white',
               height: '100%',
-              boxShadow: '0 2px 3px rgba(10, 10, 10, 0.2), 0 0 0 1px rgba(10, 10, 10, 0.1)'
+              boxShadow:
+                '0 2px 3px rgba(10, 10, 10, 0.2), 0 0 0 1px rgba(10, 10, 10, 0.1)'
             }}
           >
             <Link
+              id="nav-home"
               href="#home"
               className={`navbar-item${isCurrentPage('home')}`}
               onClick={() => changeActiveNavigation('home')}
-              style={{ border: 'none', padding: '1rem', backgroundColor: '#fafafa' }}
+              style={{
+                border: 'none',
+                padding: '1rem',
+                backgroundColor: '#fafafa'
+              }}
             >
-              <p className="title is-4" style={{ margin: '3rem 0', color: '#009e6c' }}>
+              <p
+                className="title is-4"
+                style={{ margin: '3rem 0', color: '#009e6c' }}
+              >
                 Tristan Navarrete
-                <span className="subtitle is-6" style={{ display: 'block', marginBottom: 0, fontWeight: 400 }}>
+                <span
+                  className="subtitle is-6"
+                  style={{
+                    display: 'block',
+                    marginBottom: 0,
+                    fontWeight: 400
+                  }}
+                >
                   Full Stack Developer
                 </span>
               </p>
             </Link>
-            <Link
+            {/* <Link
+            id="nav-timeline"
               href="#timeline"
               className={`navbar-item${isCurrentPage('timeline')}`}
               onClick={() => changeActiveNavigation('timeline')}
@@ -195,36 +171,75 @@ function Navigation({ router, children }) {
                 <i className="fas fa-history" />
               </span>
               <span>Timeline</span>
+            </Link> */}
+            <Link
+              id="nav-play"
+              href="#play"
+              className={`navbar-item${isCurrentPage('play')}`}
+              onClick={() => changeActiveNavigation('play')}
+              style={{ borderTop: '1px solid #e8e8e8' }}
+            >
+              <span
+                className="icon"
+                style={{
+                  marginRight: '0.5rem',
+                  color: '#dc143c'
+                }}
+              >
+                <i className="fas fa-play" />
+              </span>
+              <span>Play</span>
             </Link>
             <Link
+              id="nav-expertise"
               href="#expertise"
               className={`navbar-item${isCurrentPage('expertise')}`}
               onClick={() => changeActiveNavigation('expertise')}
-              style={{ borderLeftColor: '#ff4d4f' }}
+              style={{ borderLeftColor: '#00BFFF' }}
             >
-              <span className="icon" style={{ marginRight: '0.5rem', color: '#ff4d4f' }}>
+              <span
+                className="icon"
+                style={{
+                  marginRight: '0.5rem',
+                  color: '#00BFFF'
+                }}
+              >
                 <i className="fas fa-bolt" />
               </span>
               <span>Expertise</span>
             </Link>
             <Link
+              id="nav-experience"
               href="#experience"
               className={`navbar-item${isCurrentPage('projects')}`}
               onClick={() => changeActiveNavigation('projects')}
               style={{ borderLeftColor: '#AA8347' }}
             >
-              <span className="icon" style={{ marginRight: '0.5rem', color: '#AA8347' }}>
+              <span
+                className="icon"
+                style={{
+                  marginRight: '0.5rem',
+                  color: '#AA8347'
+                }}
+              >
                 <i className="fas fa-chess" />
               </span>
               <span>Experience</span>
             </Link>
             <Link
+              id="nav-contact"
               href="#contact"
               className={`navbar-item${isCurrentPage('contact')}`}
               onClick={() => changeActiveNavigation('contact')}
               style={{ borderLeftColor: '#20bc56' }}
             >
-              <span className="icon" style={{ marginRight: '0.5rem', color: '#20bc56' }}>
+              <span
+                className="icon"
+                style={{
+                  marginRight: '0.5rem',
+                  color: '#20bc56'
+                }}
+              >
                 <i className="fas fa-paper-plane" />
               </span>
               <span>Contact</span>
@@ -271,11 +286,23 @@ function Navigation({ router, children }) {
                 </span>
               </a>
             </div>
-            <Divider style={{ width: '80%', minWidth: '0', margin: '0.5rem auto' }} />
-            <div className="navbar-item has-text-centered" style={{ display: 'block', paddingTop: 0 }}>
+            <Divider
+              style={{
+                width: '80%',
+                minWidth: '0',
+                margin: '0.5rem auto'
+              }}
+            />
+            <div
+              className="navbar-item has-text-centered"
+              style={{ display: 'block', paddingTop: 0 }}
+            >
               <span role="img" aria-label="I {heart} {earth}!">
                 <i className="fas fa-heart" style={{ color: '#FF4D4F' }} />{' '}
-                <i className="fas fa-globe-americas" style={{ color: '#20bc56' }} />
+                <i
+                  className="fas fa-globe-americas"
+                  style={{ color: '#20bc56' }}
+                />
               </span>
             </div>
           </div>

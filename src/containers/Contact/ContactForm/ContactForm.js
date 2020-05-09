@@ -46,9 +46,16 @@ function ContactForm({ onSubmit }) {
                   <div className="field">
                     <label className="label">Name</label>
                     <div className="control">
-                      <input className="input" placeholder="Elon Musk" type="text" {...props.field} />
+                      <input
+                        className="input"
+                        placeholder="Johnney Rocket"
+                        type="text"
+                        {...props.field}
+                      />
                       {props.form.submitCount > 0 && props.form.errors.name && (
-                        <p className="help is-warning">{props.form.errors.name}</p>
+                        <p className="help is-warning">
+                          {props.form.errors.name}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -62,9 +69,16 @@ function ContactForm({ onSubmit }) {
                   <div className="field">
                     <label className="label">Email</label>
                     <div className="control">
-                      <input className="input" placeholder="elon@spacex.com" type="text" {...props.field} />
+                      <input
+                        className="input"
+                        placeholder="spaceboy@spacecamp.com"
+                        type="text"
+                        {...props.field}
+                      />
                       {props.form.touched.from && props.form.errors.from && (
-                        <p className="help is-warning">{props.form.errors.from}</p>
+                        <p className="help is-warning">
+                          {props.form.errors.from}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -81,7 +95,8 @@ function ContactForm({ onSubmit }) {
                       <textarea
                         className="textarea"
                         placeholder={
-                          props.form.touched.message && props.form.errors.message
+                          props.form.touched.message &&
+                          props.form.errors.message
                             ? props.form.errors.message
                             : 'I have an intriguing offer for you...'
                         }
@@ -96,11 +111,17 @@ function ContactForm({ onSubmit }) {
             <div className="field">
               <div className="control">
                 <button
-                  className={`button is-medium is-primary${props.isSubmitting ? ' is-loading' : ''}`}
+                  className={`button is-medium is-primary${
+                    props.isSubmitting ? ' is-loading' : ''
+                  }`}
                   type="submit"
                   disabled={props.isSubmitting}
                 >
-                  Send Message <i className="fas fa-paper-plane" style={{ marginLeft: '0.5rem' }} />
+                  Send Message{' '}
+                  <i
+                    className="fas fa-paper-plane"
+                    style={{ marginLeft: '0.5rem' }}
+                  />
                 </button>
               </div>
             </div>

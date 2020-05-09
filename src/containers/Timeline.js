@@ -159,7 +159,10 @@ const items = [
       'Keyboard Skills',
       'Ahead Of The Curve',
       <div style={{ maxHeight: 22 }}>
-        <img src="/static/iMac.ico" style={{ width: 18, height: 18, marginTop: -4 }} />
+        <img
+          src="/static/iMac.ico"
+          style={{ width: 18, height: 18, marginTop: -4 }}
+        />
       </div>
     ]
   },
@@ -169,7 +172,12 @@ const items = [
     headerTitle: '2008',
     title: 'Gifted My First Personal Computer',
     description: `I finally had a PC to myself! My family sparked my engineering passion by teaching me the inner workings, and how to upgrade as well as install parts on my own. My daily routine became a knowledgeable adventure of online research, diving into forums and getting into trouble (I hacked a few games 🙀). I very quickly made a large network of friends all over the world through the games that I played.`,
-    tags: ['Engineering Passion', 'Hardware Setup', 'Troubleshooting', 'Windows']
+    tags: [
+      'Engineering Passion',
+      'Hardware Setup',
+      'Troubleshooting',
+      'Windows'
+    ]
   },
   {
     dot: `🐥`,
@@ -177,7 +185,13 @@ const items = [
     headerTitle: '2011',
     title: 'Built My First Custom Computer',
     description: `I became a regular at the computer store and managed to save up enough money to build my own PC, the first of many. I started upgrading it's RAM memory, overclocking the CPU and GPU, installing extra HDD's and SSD's and eventually learned how to partition my drives in order to multi-boot Windows and Ubuntu. My extracurricular consisted of World of Warcraft where my leadership skills evolved rapidly as I took guild management and community into focus.`,
-    tags: ['Custom PC Assembly', 'Computer Repair', 'Computer Maintainance', 'Ubuntu', 'World Of Warcraft']
+    tags: [
+      'Custom PC Assembly',
+      'Computer Repair',
+      'Computer Maintainance',
+      'Ubuntu',
+      'World Of Warcraft'
+    ]
   },
   {
     dot: `🐔`,
@@ -201,7 +215,13 @@ const items = [
     headerTitle: '2014',
     title: 'Selected To Attend Carleton University',
     description: `"Photonics and Laser Technology (B.S)" furthered my understanding of Mathematics Physics in many ways. I decided to start a study group to help tutor some classmates and of course, they tutored me eventually becoming deep learning connections for life. \nI took a programming course which taught me the fundamentals of Computer Science using C++, which amazingly transformed my mindset, embedding daily programming routines into my lifestyle. Something I will never forget about my education here was the 12+ hour lab all-nighter's that taught me self discipline, perseverance, and how see a project through to it's conclusion.`,
-    tags: ['Math for Photonics', 'Physics for Photonics', 'C++', 'Programming Paradigms', 'Character Encodings']
+    tags: [
+      'Math for Photonics',
+      'Physics for Photonics',
+      'C++',
+      'Programming Paradigms',
+      'Character Encodings'
+    ]
   },
   {
     dot: `📡`,
@@ -239,7 +259,14 @@ const items = [
     headerTitle: '2018',
     title: 'Selected To Attend Lighthouse Labs',
     description: `After being interviewed to attend the new "Blockchain For Developers" course at Lighthouse Labs, I was extremely honored to be selected, and immediately felt excited to be apart of this community. This course pushed me in a new direction, as my teachers were industry leaders who provided direct insight on best practices and the evolving future of developing a decentralized "Dapp". With my new found motivation I taught myself several technologies within a short amount of time in order to meet the requirements of the course, and to my surprise, I was able to develop a more than just Dapp by the end. \n My effort payed off as I was able to learn an incredible amount while at home as well as in the classroom, enhancing my knowledge of application architecture, security, which opened doors to previously unseen networking opportunities  that I am grateful for today.`,
-    tags: ['Encryption Standards', 'Blockchain', 'Dapp Development', 'Smart Contracts', 'Ethereum', 'Solidity']
+    tags: [
+      'Encryption Standards',
+      'Blockchain',
+      'Dapp Development',
+      'Smart Contracts',
+      'Ethereum',
+      'Solidity'
+    ]
   },
   {
     dot: `👩‍💻`,
@@ -275,7 +302,13 @@ const ForwardedRefsDiv = React.forwardRef((props, ref) => (
   </div>
 ))
 
-const TimelineDrawer = ({ isCollapsed, handleOpen, handleClose, children, ...rest }) => {
+const TimelineDrawer = ({
+  isCollapsed,
+  handleOpen,
+  handleClose,
+  children,
+  ...rest
+}) => {
   const myRef = useRef(null)
   const executeScroll = () => scrollToRef(myRef)
   const handleClick = () => {
@@ -306,7 +339,13 @@ function renderItems(items) {
   return (
     <VisibilitySensor partialVisibility once style={{ minHeight: 775 }}>
       {({ isVisible }) => (
-        <QueueAnim type="bottom" component={Timeline} mode="alternate" delay={600} duration={1500}>
+        <QueueAnim
+          type="bottom"
+          component={Timeline}
+          mode="alternate"
+          delay={600}
+          duration={1500}
+        >
           {isVisible &&
             items.map((item, key) => (
               <ForwardedRefsDiv key={`item-${key}`}>

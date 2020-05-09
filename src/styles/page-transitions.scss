@@ -1,35 +1,35 @@
 $TIMEOUT: 150;
 .content-wrapper {
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 
 .page-transition-enter {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
 }
 
 .page-transition-enter-active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    transition: opacity $TIMEOUT ms, transform $TIMEOUT ms;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity $TIMEOUT ms, transform $TIMEOUT ms;
 }
 
 .page-transition-exit {
-    opacity: 1;
+  opacity: 1;
 }
 
 .page-transition-exit-active {
-    opacity: 0;
-    transition: opacity $TIMEOUT ms;
+  opacity: 0;
+  transition: opacity $TIMEOUT ms;
 }
 
 .loading-indicator-appear,
 .loading-indicator-enter {
-    opacity: 0;
+  opacity: 0;
 }
 
 .loading-indicator-appear-active,
 .loading-indicator-enter-active {
-    opacity: 1;
-    transition: opacity $TIMEOUT ms;
+  opacity: 1;
+  transition: opacity $TIMEOUT ms;
 }

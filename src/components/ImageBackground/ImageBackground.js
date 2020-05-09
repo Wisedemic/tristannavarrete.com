@@ -1,5 +1,5 @@
-import React from 'react';
-import Styled from 'styled-components';
+import React from 'react'
+import Styled from 'styled-components'
 
 export default Styled.div`
     width: 100%;
@@ -10,5 +10,6 @@ export default Styled.div`
     filter: blur(5px);
     background-repeat: no-repeat;
     background-position: center bottom;
-    background-image: ${props => props.url ? `url(${props.url || props.src})` : `none`}
-`; 
+    background-image: ${props =>
+      props.url ? `url(${props.url || props.src})` : `none`}
+`

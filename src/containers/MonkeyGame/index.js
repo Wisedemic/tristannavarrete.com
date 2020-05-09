@@ -5,16 +5,17 @@ import { Skeleton } from 'antd'
 import { GameState } from './gameState'
 import { useRAF, RunningState } from '../../hooks/useRequestAnimationFrame'
 import { useContainer } from 'unstated-next'
+import CardPanel from '../../components/CardPanel'
 
-const GameWrapper = () => (
+const GameWrapper = props => (
   <GameState.Provider>
     <RunningState.Provider>
-      <MonkeyGame />
+      <MonkeyGame {...props} />
     </RunningState.Provider>
   </GameState.Provider>
 )
 
-const MonkeyGame = () => {
+const MonkeyGame = ({ title }) => {
   let [isLoading, setLoading] = useState(true)
   let { running } = useContainer(RunningState)
   let { updateGame } = useContainer(GameState)
@@ -27,12 +28,13 @@ const MonkeyGame = () => {
   }, [running])
 
   return (
-    <div className="panel">
-      <div className="panel-block" style={{ borderTop: 'none', flexDirection: 'column' }}></div>
-      <div className="panel-block" style={{ display: 'block' }}>
-        {isLoading ? <Skeleton active /> : <MonkeyGamePresentation setLoading={setLoading} />}
-      </div>
-    </div>
+    <CardPanel title={title}>
+      {isLoading ? (
+        <Skeleton active />
+      ) : (
+        <MonkeyGamePresentation setLoading={setLoading} />
+      )}
+    </CardPanel>
   )
 }
 

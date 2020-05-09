@@ -15,7 +15,8 @@ const Link = styled.a`
   }
 `
 
-const UnknownError = () => message.error('There was an error sending that message...', 5)
+const UnknownError = () =>
+  message.error('There was an error sending that message...', 5)
 
 // This gets passed to formik as a callback.
 const onSubmit = (values, actions) => {
@@ -51,10 +52,13 @@ export default () => {
     <section id="contact" className="hero is-white">
       <div className="hero-body">
         <div className="container" style={{ width: 'unset' }}>
+          <h3 className="title is-3 has-text-centered">Get In Contact</h3>
+          <h4 className="subtitle is-5 has-text-centered">
+            ~ Let's create something amazing together! ~
+          </h4>
           <div className="columns is-centered" style={{ margin: '2rem 0' }}>
-            <div className="column is-4">
+            {/* <div className="column is-4">
               <Typography>
-                <h3 className="title is-2">Get in Touch</h3>
                 <Paragraph>
                   Do you have an interesting project I can help with? Feel free to reach out to me by using one of the
                   following:
@@ -73,7 +77,7 @@ export default () => {
                 </Paragraph>
                 <Paragraph>You can also use the contact form on this page.</Paragraph>
               </Typography>
-            </div>
+            </div> */}
             <div className="column is-8">
               <ContactForm onSubmit={onSubmit} />
             </div>

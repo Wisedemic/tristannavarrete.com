@@ -47,7 +47,12 @@ const OnBlurValidation = ({ mutators: { onBlurValidationMutator } }) => (
 
 const onBlurValidationMutator = () => {}
 
-const ItemForm = ({ id = null, initialValues = { item: '' }, onSubmit, cancelForm }) => (
+const ItemForm = ({
+  id = null,
+  initialValues = { item: '' },
+  onSubmit,
+  cancelForm
+}) => (
   <Form
     initialValues={initialValues}
     onSubmit={onSubmit}
@@ -65,13 +70,23 @@ const ItemForm = ({ id = null, initialValues = { item: '' }, onSubmit, cancelFor
           <Field
             name="item"
             render={({ input, meta }) => (
-              <div className="field has-addons has-addons-right is-grouped" style={{ width: '100%' }}>
+              <div
+                className="field has-addons has-addons-right is-grouped"
+                style={{ width: '100%' }}
+              >
                 <div className="control is-expanded">
                   <input {...input} className="input is-small" />
-                  {meta.touched && meta.error && <p className="help is-danger">{meta.error}</p>}
+                  {meta.touched && meta.error && (
+                    <p className="help is-danger">{meta.error}</p>
+                  )}
                 </div>
                 <div className="control">
-                  <Button type="primary" size="small" onClick={handleSubmit} disabled={pristine || invalid}>
+                  <Button
+                    type="primary"
+                    size="small"
+                    onClick={handleSubmit}
+                    disabled={pristine || invalid}
+                  >
                     <Icon type="check" />
                   </Button>
                 </div>

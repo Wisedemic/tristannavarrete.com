@@ -36,9 +36,11 @@ class Board extends Component {
   // Toggle the board edit item form.
   toggleEditItem = id => this.setState({ isEditingCurrentItem: id })
   // Toggle this board into DELETION MODE
-  toggleAttemptToRemoveBoard = () => this.setState({ isAttemptingToRemoveBoard: this.props.boardIndex })
+  toggleAttemptToRemoveBoard = () =>
+    this.setState({ isAttemptingToRemoveBoard: this.props.boardIndex })
   // Toggle this item into DELETION MODE
-  toggleAttemptToRemoveItem = id => this.setState({ isAttemptingToRemoveItem: id })
+  toggleAttemptToRemoveItem = id =>
+    this.setState({ isAttemptingToRemoveItem: id })
 
   // Cancel Editing this board title
   cancelEditTitle = () => this.setState({ isEditingTitle: false })
@@ -47,9 +49,11 @@ class Board extends Component {
   // Cancel Editing this board title
   cancelEditItem = () => this.setState({ isEditingCurrentItem: false })
   // Cancel attempt to Remove this board.
-  cancelAttemptToRemoveBoard = () => this.setState({ isAttemptingToRemoveBoard: false })
+  cancelAttemptToRemoveBoard = () =>
+    this.setState({ isAttemptingToRemoveBoard: false })
   // Cancel attempt to Remove this item.
-  cancelAttemptToRemoveItem = () => this.setState({ isAttemptingToRemoveItem: false })
+  cancelAttemptToRemoveItem = () =>
+    this.setState({ isAttemptingToRemoveItem: false })
 
   // Start dragging an item
   dragStart = (ev, itemIndex, boardIndex, data) => {
@@ -66,7 +70,13 @@ class Board extends Component {
     let fromBoard = ev.dataTransfer.getData('boardIndex')
     let fromItemIndex = ev.dataTransfer.getData('itemIndex')
     let data = ev.dataTransfer.getData('itemData')
-    this.props.actions.transferItem(fromItemIndex, fromBoard, data, Number(toBoard), Number(toItemIndex))
+    this.props.actions.transferItem(
+      fromItemIndex,
+      fromBoard,
+      data,
+      Number(toBoard),
+      Number(toItemIndex)
+    )
   }
 
   // This is used to ensure this.props.updateBoard receives all the board data at once.
@@ -136,17 +146,27 @@ class Board extends Component {
               draggable
               onDragOver={this.dragOver}
               onDrop={e => this.dragDrop(e, this.props.boardIndex, index)}
-              onDragStart={e => this.dragStart(e, index, this.props.boardIndex, value)}
+              onDragStart={e =>
+                this.dragStart(e, index, this.props.boardIndex, value)
+              }
               key={index}
               id={`${this.props.category}-${index}`}
               className="board-item droppable grabbable"
             >
               <span>{value}</span>
               <ButtonGroup>
-                <Button type="dashed" onClick={() => this.toggleEditItem(index)} size="small">
+                <Button
+                  type="dashed"
+                  onClick={() => this.toggleEditItem(index)}
+                  size="small"
+                >
                   <Icon type="edit" />
                 </Button>
-                <Button type="danger" onClick={() => this.removeItem(index)} size="small">
+                <Button
+                  type="danger"
+                  onClick={() => this.removeItem(index)}
+                  size="small"
+                >
                   <Icon type="delete" />
                 </Button>
               </ButtonGroup>
@@ -157,7 +177,11 @@ class Board extends Component {
     } else {
       const className = 'board-item board-empty droppable'
       return (
-        <div className={className} onDragOver={this.dragOver} onDrop={e => this.dragDrop(e, this.props.boardIndex)}>
+        <div
+          className={className}
+          onDragOver={this.dragOver}
+          onDrop={e => this.dragDrop(e, this.props.boardIndex)}
+        >
           <Empty style={{ margin: '0 auto', textAlign: 'center' }} />
         </div>
       )
@@ -168,10 +192,21 @@ class Board extends Component {
   render() {
     const boardProps = this.props
     const invertedColour = invertColour(boardProps.colour, true) || '#000000'
-    const { isEditingTitle, isCreatingItem, isAttemptingToRemoveBoard } = this.state
+    const {
+      isEditingTitle,
+      isCreatingItem,
+      isAttemptingToRemoveBoard
+    } = this.state
 
     const actions = [
-      <div onClick={this.toggleCreateItem} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        onClick={this.toggleCreateItem}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Icon type="plus" style={{ width: 32 }} />
         <span>Add Item</span>
       </div>,
@@ -179,19 +214,29 @@ class Board extends Component {
     ]
 
     const BoardHeader = (
-      <header className="card-header" style={{ backgroundColor: boardProps.colour }}>
+      <header
+        className="card-header"
+        style={{ backgroundColor: boardProps.colour }}
+      >
         <div className="card-header-title" style={{ color: invertedColour }}>
           {/* If the user is editing the title */}
           {isEditingTitle ? (
             <TitleForm
               initialValues={{ category: boardProps.category }}
-              onSubmit={values => this.prepareBoardForUpdate(boardProps.boardIndex, values)}
+              onSubmit={values =>
+                this.prepareBoardForUpdate(boardProps.boardIndex, values)
+              }
               cancelForm={this.cancelEditTitle}
             />
           ) : (
             <React.Fragment>
               {boardProps.category}
-              <Button type="dashed" style={{ marginLeft: '0.5rem' }} onClick={this.toggleEditTitle} size="small">
+              <Button
+                type="dashed"
+                style={{ marginLeft: '0.5rem' }}
+                onClick={this.toggleEditTitle}
+                size="small"
+              >
                 <Icon type="edit" />
               </Button>
             </React.Fragment>
@@ -210,18 +255,30 @@ class Board extends Component {
         {isAttemptingToRemoveBoard === boardProps.boardIndex ? (
           <div className="overlay">
             <Typography>
-              <Paragraph style={{ color: 'white' }}>Are you sure you would like to delete this board?</Paragraph>
+              <Paragraph style={{ color: 'white' }}>
+                Are you sure you would like to delete this board?
+              </Paragraph>
               <ButtonGroup>
-                <Button type="danger" onClick={this.confirmAttemptToRemoveBoard}>
+                <Button
+                  type="danger"
+                  onClick={this.confirmAttemptToRemoveBoard}
+                >
                   Confirm
                 </Button>
-                <Button onClick={this.cancelAttemptToRemoveBoard}>Cancel</Button>
+                <Button onClick={this.cancelAttemptToRemoveBoard}>
+                  Cancel
+                </Button>
               </ButtonGroup>
             </Typography>
           </div>
         ) : null}
         {this.renderItems(boardProps.data)}
-        {isCreatingItem && <ItemForm onSubmit={this.createItem} cancelForm={this.cancelCreateItem} />}
+        {isCreatingItem && (
+          <ItemForm
+            onSubmit={this.createItem}
+            cancelForm={this.cancelCreateItem}
+          />
+        )}
       </Card>
     )
   }

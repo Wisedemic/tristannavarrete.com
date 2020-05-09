@@ -189,9 +189,11 @@ export default () => {
     <section id="expertise" className="hero is-white is-fullheight">
       <div className="hero-body">
         <div className="container">
-          <h2 className="title is-2">Expertise</h2>
-          <h3 className="subtitle is-4" style={{ marginBottom: '1.5rem' }}>
-            A handful of technologies/methodologies that I have expertise in
+          <h2 className="title is-3">Expertise</h2>
+          <h3 className="subtitle is-5" style={{ marginBottom: '1.5rem' }}>
+            <i>
+              ~ A handful of technologies/methodologies that I have expertise in
+            </i>
           </h3>
           <VisibilitySensor partialVisibility once style={{ minHeight: 650 }}>
             {({ isVisible }) => (
@@ -201,21 +203,52 @@ export default () => {
                     <h6 key="title" className="subtitle is-5 has-text-centered">
                       Frontend
                     </h6>
-                    <Divider key="divider" style={{ width: '80%', minWidth: 0, margin: '1rem auto 2rem auto' }} />
+                    <Divider
+                      key="divider"
+                      style={{
+                        width: '80%',
+                        minWidth: 0,
+                        margin: '1rem auto 2rem auto'
+                      }}
+                    />
                     {skills.frontend}
                   </QueueAnim>,
-                  <QueueAnim delay={300} type="bottom" key="col-2" className="column">
+                  <QueueAnim
+                    delay={300}
+                    type="bottom"
+                    key="col-2"
+                    className="column"
+                  >
                     <h6 key="title" className="subtitle is-5 has-text-centered">
                       Backend
                     </h6>
-                    <Divider key="divider" style={{ width: '80%', minWidth: 0, margin: '1rem auto 2rem auto' }} />
+                    <Divider
+                      key="divider"
+                      style={{
+                        width: '80%',
+                        minWidth: 0,
+                        margin: '1rem auto 2rem auto'
+                      }}
+                    />
                     {skills.backend}
                   </QueueAnim>,
-                  <QueueAnim delay={500} type="bottom" key="col-3" className="column">
+                  <QueueAnim
+                    delay={500}
+                    type="bottom"
+                    key="col-3"
+                    className="column"
+                  >
                     <h6 key="title" className="subtitle is-5 has-text-centered">
                       Dev Ops
                     </h6>
-                    <Divider key="divider" style={{ width: '80%', minWidth: 0, margin: '1rem auto 2rem auto' }} />
+                    <Divider
+                      key="divider"
+                      style={{
+                        width: '80%',
+                        minWidth: 0,
+                        margin: '1rem auto 2rem auto'
+                      }}
+                    />
                     {skills.devOps}
                   </QueueAnim>
                 ]}
