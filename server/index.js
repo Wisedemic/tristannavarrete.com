@@ -22,7 +22,10 @@ nextApp.prepare().then(() => {
   // Serve a Sitemap.xml when requested!
   server.get('/sitemap.xml', function(req, res) {
     res.header('Content-Type', 'application/xml')
-    const sitemap = fs.readFileSync(path.join(__dirname, 'public', 'sitemap.xml'), 'utf8')
+    const sitemap = fs.readFileSync(
+      path.join(__dirname, 'public', 'sitemap.xml'),
+      'utf8'
+    )
     res.send(sitemap)
   })
 
@@ -37,17 +40,24 @@ nextApp.prepare().then(() => {
 
     sendMail({ email: from, name, text: message })
       .then(() => {
-        console.log(`--- Sucessfully sent mail! --- From: ${from} -> To: navarrete.tristan@gmail.com`)
+        console.log(
+          `--- Sucessfully sent mail! --- From: ${from} -> To: navarrete.tristan@gmail.com`
+        )
         res.send({
           success: true,
-          message: "Message sent! 👌 Have a nice day! I'll get back to you soon!"
+          message:
+            "Message sent! 👌 Have a nice day! I'll get back to you soon!"
         })
       })
       .catch(error => {
-        console.log('--- Failed to send email! ---  Error:', JSON.stringify(error, null, 2))
+        console.log(
+          '--- Failed to send email! ---  Error:',
+          JSON.stringify(error, null, 2)
+        )
         res.send({
           success: false,
-          message: "Something unexpected happened on the backend! Don't worry. Ninja's have been dispatched."
+          message:
+            "Something unexpected happened on the backend! Don't worry. Ninja's have been dispatched."
         })
       })
   })

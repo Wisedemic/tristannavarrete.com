@@ -20,7 +20,9 @@ const sendMail = ({ email, name, text }) => {
     text
   }
   return new Promise((resolve, reject) => {
-    mailgun.messages().send(message, (error, body) => (error ? reject(error) : resolve(body)))
+    mailgun
+      .messages()
+      .send(message, (error, body) => (error ? reject(error) : resolve(body)))
   })
 }
 
