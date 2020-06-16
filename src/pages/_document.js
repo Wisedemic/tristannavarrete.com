@@ -1,35 +1,14 @@
 import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
-  // Setup Documents props, getting the render ctx from the server
   static async getInitialProps(ctx) {
-    // Generate SSR styled-components Context
-    const sheet = new ServerStyleSheet()
-
-    // Get the page to be rendered
-    const originalRenderPage = ctx.renderPage
-
-    // Render the page with all available styled-components found.
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
-      })
-
-    // Fetch inital Props
     const initialProps = await Document.getInitialProps(ctx)
-
-    // Merge and return propsList
-    return {
-      ...initialProps,
-      styles: [...initialProps.styles, ...sheet.getStyleElement()]
-    }
+    return { ...initialProps }
   }
-
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <meta
             name="viewport"
@@ -72,7 +51,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
