@@ -4,7 +4,7 @@ import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
 import Router from 'next/router'
 import withGA from 'next-ga'
 import getConfig from 'next/config'
-import theme from '../theme'
+import theme from '../lib/theme'
 import '../styles/global.scss'
 
 const { publicRuntimeConfig } = getConfig()

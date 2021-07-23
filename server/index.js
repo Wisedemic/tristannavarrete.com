@@ -20,7 +20,7 @@ nextApp.prepare().then(() => {
   server.use(bodyParser.json())
 
   // Serve a Sitemap.xml when requested!
-  server.get('/sitemap.xml', function(req, res) {
+  server.get('/sitemap.xml', function (req, res) {
     res.header('Content-Type', 'application/xml')
     const sitemap = fs.readFileSync(
       path.join(__dirname, 'public', 'sitemap.xml'),
@@ -49,7 +49,7 @@ nextApp.prepare().then(() => {
             "Message sent! 👌 Have a nice day! I'll get back to you soon!"
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(
           '--- Failed to send email! ---  Error:',
           JSON.stringify(error, null, 2)
@@ -66,7 +66,7 @@ nextApp.prepare().then(() => {
   server.get('*', (req, res) => handle(req, res))
 
   // Start the server using the provided PORT
-  server.listen(PORT, err => {
+  server.listen(PORT, (err) => {
     if (err) throw err
     console.log('> Read on http://localhost:3000')
   })
