@@ -51,7 +51,7 @@
     "next": "^9.3.0",
     "next-ga": "^2.3.4",
     "next-page-transitions": "^1.0.0-beta.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "null-loader": "^3.0.0",
     "randomcolor": "^0.5.3",
     "rc-animate": "^2.10.3",
